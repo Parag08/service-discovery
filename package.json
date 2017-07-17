@@ -24,5 +24,6 @@
   "homepage": "https://github.com/Parag08/service-discovery#readme",
   "dependencies": {
     "body-parser": "^1.17.2"
-  }
+  },
+  "devDependencies": {}
 }
