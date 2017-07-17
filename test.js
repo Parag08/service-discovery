@@ -2,7 +2,7 @@ Service = require('./service-register.js')
 service = new Service('testService')
 service.addFunction('testaddfunction', function (req,res) {   //request or message,done
     console.log('request:recived:',req)
-    res.send({'reply':'hi'})
+    res(null,{'reply':'hi'})
 })
 
 service.send('testService','testaddfunction',{msg:{'aloha':'hi'}} ,function (err,resp) {
@@ -17,7 +17,7 @@ service.send('testService','testfunction',{msg:{'aloha':'hi'}} ,function (err,re
 
 service.addFunction('testaddfunction-2', function (req,res) {   //request or message,done
     console.log('request:recived:',req)
-    res.send({'reply':'hi2'})
+    res({'err':'notFound'},{'reply':'hi2'})
 })
 
 

@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 const PID = process.pid;
 const PORT = Math.floor(process.argv[2]) || 29999;
 const HOST = os.hostname();
+var PORT = 29999;
 
 known_nodejs_services_instances = {}
 
@@ -44,8 +45,10 @@ function createConsulID(serviceName, functionName) {
     return `nodejs-${serviceName}%${functionName}-${HOST}-${PORT}-${uuid.v4()}`
 }
 
-function Service(serviceName) {
+function Service(serviceName,port) {
     this.serviceName = serviceName;
+    PORT = port||29999
+    app.listen(PORT, function() {})
 }
 
 function findServiceFunction(servicename, functionName, req, callback) {
@@ -70,8 +73,10 @@ function findServiceFunction(servicename, functionName, req, callback) {
                 function(error, response, body) {
                     if (!error && response.statusCode == 200) {
                         callback(null,body)
-                    } else {
-                        callback('Service not responding',null)
+                    } else if (!error) {
+                        callback(response.body,null)
+                    }  else {
+                        callback('function not responding',null)
                         console.error(error)
                         console.error('timeout error Service not responding','service:',servicename,'function:',functionName,'msg:',req)
                     }
@@ -101,7 +106,13 @@ Service.prototype.addFunction = function(functionName, callback) {
     CONSUL_ID = createConsulID(this.serviceName, functionName)
     console.log('addingfucntion:', functionName, 'service:', this.serviceName)
     app.post('/' + this.serviceName + '/' + functionName + '/', function(req, res) {
-        callback(req.body, res)
+        callback(req.body, function (err,reply) {
+            if (!err) {
+                res.send(reply)
+            } else {
+                res.status(400).send(err);
+            }
+        })
     })
     let details = {
         name: 'nodejs-services',
@@ -138,6 +149,3 @@ Service.prototype.addFunction = function(functionName, callback) {
         });
     });
 }
-
-
-app.listen(PORT, function() {})
