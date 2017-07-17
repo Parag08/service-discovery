@@ -8,7 +8,6 @@ const os = require('os');
 const timeout = 10
 app.use(bodyParser.json())
 const PID = process.pid;
-const PORT = Math.floor(process.argv[2]) || 29999;
 const HOST = os.hostname();
 var PORT = 29999;
 
