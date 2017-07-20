@@ -1,0 +1,29 @@
+{
+  "name": "service-discovery",
+  "version": "1.0.0",
+  "description": "a utility to create a service discovery framework using consul",
+  "main": "test.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parag08/service-discovery.git"
+  },
+  "keywords": [
+    "service-discovery",
+    "consul",
+    "action-pattern",
+    "nodejs"
+  ],
+  "author": "parag",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Parag08/service-discovery/issues"
+  },
+  "homepage": "https://github.com/Parag08/service-discovery#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2"
+  },
+  "devDependencies": {}
+}
