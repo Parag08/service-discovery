@@ -8,14 +8,14 @@ all service can be registered as
 
 
 1. Registering service   
-Service,err := registerService(<servicename> string, <port> int)   
+`Service,err := registerService(<servicename> string, <port> int)`   
 [after this step service should be register with consul and any node connected to that consul cluster can talk to the above mentioned service]  
     
 2. Implementing or Adding a Function to Service  
-Service.addFunction(<functionname> string, functionToexcute func)  
+`Service.addFunction(<functionname> string, functionToexcute func) ` 
   
 3. Talking with other services  
-response,error :=Service.send(<servicename> string,<functionname> string,msgForTheFunction inputobj)   
+`response,error :=Service.send(<servicename> string,<functionname> string,msgForTheFunction inputobj)`   
    
 functions Implementations and structures   
    
