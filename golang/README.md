@@ -28,7 +28,7 @@ type inputobj struct {
 resultobj   
 ```golang   
 type resultobj struct {  
-        result interface{}    
+        result string    
         err string  //this I havent implemented   
 }  
 
@@ -45,3 +45,41 @@ functionToexcute(inputjson inputobj, done result)   {
 }
 ```
 if any one has any segestion regarding the implementation let me know   
+
+
+
+<b>example</b>
+
+
+```golang
+//register a new service with a name hi and a function hello
+Service, _ := serviceRegistry.RegisterService("hi", 1234)
+	fmt.Println(Service)
+	Service.AddFunction("hello", func(inputjson serviceRegistry.Inputobj, done serviceRegistry.Result) {
+		fmt.Println(inputjson, inputjson.Msg)
+		var inputFuncObj functionsInput
+		if err := json.Unmarshal([]byte(inputjson.Msg), &inputFuncObj); err != nil {
+			panic(err)
+		}
+		fmt.Println("inputFuncObj", inputFuncObj)
+		sum := inputFuncObj.Int1 + inputFuncObj.Int2
+		result := map[string]int{"sum": sum}
+		result2, err := json.Marshal(result)
+		if err != nil {
+			panic(err)
+		}
+		done(nil, serviceRegistry.Resultobj{Result: string(result2)})
+	})
+	Service.Start()
+    
+//using the service with functionality
+
+Client, _ := serviceClient.NewClient()
+	jsonObjToSend := map[string]int{"int1": 5, "int2": 8}
+	mapB, err := json.Marshal(jsonObjToSend)
+	if err != nil {
+		panic(err)
+	}
+	toSend := serviceClient.Inputobj{Msg: string(mapB)}
+	Client.Send("hi", "hello", toSend)
+```
