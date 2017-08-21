@@ -20,17 +20,18 @@ response,error :=Service.send(<servicename> string,<functionname> string,msgForT
 functions Implementations and structures   
    
 inputobj   
-   
+```golang   
 type inputobj struct {   
-        msg interface{}   
+        msg string   
 }   
-   
+```   
 resultobj   
-   
+```golang   
 type resultobj struct {  
         result interface{}    
         err string  //this I havent implemented   
 }  
+
     
 type result func(error, resultobj)    
      
@@ -42,5 +43,5 @@ functionToexcute(inputjson inputobj, done result)   {
             done(nil,resultobj)
          }
 }
-
+```
 if any one has any segestion regarding the implementation let me know   
