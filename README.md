@@ -2,7 +2,7 @@
 
 <b>Consul based service discovery for nodejs application</b>
 
-this service discovery can be used by any app which can have a http interface
+this service discovery can be used by any microservice architecture  
    
 <b>bugs and improvements</b>
 

@@ -83,3 +83,6 @@ Client, _ := serviceClient.NewClient()
 	toSend := serviceClient.Inputobj{Msg: string(mapB)}
 	Client.Send("hi", "hello", toSend)
 ```
+
+<b>known bugs</b>
+services doesnot get auto deregistered from consul
